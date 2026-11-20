@@ -133,6 +133,7 @@ export function apply(ctx, rawConfig) {
         if (typeof operation?.target !== 'string') return
         const result = engine.classifyInstalled(operation.target)
         if (result.ok && result.unchanged !== true) {
+          engine.invalidateBundles()
           log(`installed bundle ${operation.target} classified ${result.classification}`)
         }
       } catch (error) {

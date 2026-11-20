@@ -98,7 +98,7 @@ NORMAL 重组里回到启用状态；归档记录留在 `state.json`，删掉该
 ## 开发
 
 ```bash
-node scripts/selfcheck-coldstart.mjs   # 48 项：模式语义、回滚、PIN 两次确认、指纹登记/校验、找回令牌、安装分类、异步契约
+node scripts/selfcheck-coldstart.mjs   # 58 项：模式语义、回滚、PIN 两次确认、指纹登记/校验、找回令牌、安装分类、队列与假死、异步契约
 node scripts/check-client.mjs          # 无浏览器渲染检查：NORMAL/PRIVATE 两种状态下每个入口渲染什么文字
 node scripts/check-presets.mjs         # 两个 preset 的工具行与已装 standard preset 比对（漂移检查）
 ```

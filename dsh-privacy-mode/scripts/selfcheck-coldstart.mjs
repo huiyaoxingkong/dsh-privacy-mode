@@ -670,6 +670,11 @@ async function main() {
     assert.equal(typeof recovered.recovery, 'string')
     assert.equal(store10.read().mode, 'normal')
   })
+  const rejectedReset = engine10.setPin('1', { recovery: recovered.recovery })
+  check('recovery: an invalid request does not burn the token', () => {
+    assert.equal(rejectedReset.ok, false)
+    assert.equal(rejectedReset.error, 'pin-too-short')
+  })
   const reset = engine10.setPin('2222', { confirm: '2222', recovery: recovered.recovery })
   check('recovery: the token replaces the forgotten password', () => {
     assert.equal(reset.ok, true)
@@ -799,6 +804,36 @@ async function main() {
     assert.equal(store14.read().mode, 'normal')
   })
   box14.cleanup()
+
+  // ---- 14. An abandoned job cannot overwrite the job that replaced it ----------
+  const box15 = workspace()
+  const world15 = makeWorld()
+  const toggle = world15.pluginManager.setBundleEnabled.bind(world15.pluginManager)
+  const hung = { release: null }
+  let hangOnce = true
+  world15.pluginManager.setBundleEnabled = (name, enabled) => {
+    if (hangOnce && name === 'beta-plugin') {
+      hangOnce = false
+      return new Promise((resolve) => { hung.release = () => { toggle(name, enabled).then(resolve) } })
+    }
+    return toggle(name, enabled)
+  }
+  const store15 = new PrivacyStore({ dir: box15.dir, defaultMode: 'normal' })
+  const engine15 = createEngine({ store: store15, config: config({ staleJobMs: 40 }), services: world15 })
+  engine15.mark('bundle', 'beta-plugin', 'private')
+  engine15.requestReconcile({ reason: 'mark' })
+  await sleep(70)
+  const replaced = engine15.requestSwitch('private')
+  await sleep(30)
+  if (typeof hung.release === 'function') hung.release()
+  await settle(engine15, 6000)
+  check('a late abandoned job cannot overwrite the current one', () => {
+    assert.equal(replaced.accepted, true)
+    const current = engine15.job()
+    assert.equal(current.kind, 'switch-private', `current job is ${current.kind}`)
+    assert.equal(current.status, 'done', `current job is ${current.status}`)
+  })
+  box15.cleanup()
 
   // ---- report ----------------------------------------------------------------
   for (const result of results) {

@@ -1,6 +1,6 @@
 {
   "name": "dsh-privacy-mode",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "description": "Asymmetric visibility modes for DeepSeek Harness: in NORMAL, marked plugins, workspaces and sessions do not exist; in PRIVATE, everything is visible again.",

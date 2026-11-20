@@ -85,7 +85,7 @@ export function createEngine({ store, config, services, log = () => {} }) {
   /** A newer request asks the current job to stop before it touches any bundle. */
   let cancelRequested = false
   /** Past this age a "running" job is treated as abandoned, not as a reason to refuse. */
-  const STALE_JOB_MS = 30_000
+  const STALE_JOB_MS = Number.isFinite(config.staleJobMs) && config.staleJobMs > 0 ? config.staleJobMs : 30_000
 
   function jobStale(record) {
     return record !== null && record.status === 'running' && Date.now() - record.startedAt > STALE_JOB_MS
@@ -108,23 +108,29 @@ export function createEngine({ store, config, services, log = () => {} }) {
       startedAt: Date.now(),
     }
     job = record
+    // Every write below is guarded by the id: a job the stale watchdog abandoned keeps
+    // running in the background, and when it finally settles it must not overwrite the
+    // status or the result of the job that replaced it.
+    const settle = (patch) => {
+      if (job === null || job.id !== record.id) return
+      job = { ...job, ...patch }
+    }
     const run = queue.then(async () => {
-      job = { ...record, status: 'running', startedAt: Date.now() }
+      settle({ status: 'running', startedAt: Date.now() })
       cancelRequested = false
       try {
         const result = await task()
         const failed = result !== null && typeof result === 'object' && result.ok === false
-        job = {
-          ...job,
+        settle({
           status: failed ? 'failed' : 'done',
           finishedAt: Date.now(),
           timings: Array.isArray(result?.timings) ? result.timings : [],
           ...failed ? { error: result.error ?? 'failed' } : {},
           result: summarizeResult(result),
-        }
+        })
         return result
       } catch (error) {
-        job = { ...job, status: 'failed', finishedAt: Date.now(), error: messageOf(error) }
+        settle({ status: 'failed', finishedAt: Date.now(), error: messageOf(error) })
         return { ok: false, error: messageOf(error) }
       } finally {
         cancelRequested = false
@@ -540,6 +546,9 @@ export function createEngine({ store, config, services, log = () => {} }) {
         timings.push({ step: 'listBundles', ms: Date.now() - listingAt })
         let disabledByMode = [...current.disabledByMode]
         for (const bundle of bundles) {
+          // A newer request supersedes this one; stop before moving another bundle and
+          // let the rollback put back what this one already changed.
+          if (cancelRequested) throw new Error('superseded by a newer request')
           const want = desiredBundleEnabled(current, bundle)
           if (want === bundle.enabled) continue
           const stepAt = Date.now()
@@ -868,15 +877,17 @@ export function createEngine({ store, config, services, log = () => {} }) {
 
   function setPin(pin, { confirm, currentPin, recovery, actor = 'ui', origin = '' } = {}) {
     const current = state()
-    const recovered = current.pin !== null && consumeRecovery(recovery)
-    if (current.pin !== null && !recovered && !verifyPin(String(currentPin ?? ''), current.pin)) {
-      return { ok: false, error: 'current-pin-mismatch' }
-    }
     const text = typeof pin === 'string' ? pin : ''
+    // Validate before redeeming anything: a malformed request must not burn a
+    // single-use recovery token.
     if (text.length < 4) return { ok: false, error: 'pin-too-short' }
     // The confirmation is checked here as well as in the form: a second field the
     // server ignores is a field that can be dropped by any caller.
     if (confirm !== undefined && String(confirm) !== text) return { ok: false, error: 'pin-confirm-mismatch' }
+    const recovered = current.pin !== null && consumeRecovery(recovery)
+    if (current.pin !== null && !recovered && !verifyPin(String(currentPin ?? ''), current.pin)) {
+      return { ok: false, error: 'current-pin-mismatch' }
+    }
     store.write({ ...current, pin: hashPin(text) })
     audit(actor, origin, recovered ? 'pin-recovered' : 'pin-set', { algorithm: 'scrypt', ...recovered ? { via: 'platform-authenticator' } : {} })
     return { ok: true, recovered }

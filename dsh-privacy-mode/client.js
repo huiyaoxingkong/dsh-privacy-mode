@@ -95,6 +95,7 @@ window.__ModuleLoader__.load({
         frostOff: '恢复显示',
         frostEnter: '进入隐私模式',
         hiddenChats: '已隐藏的对话',
+        allHidden: '全部 {n} 个对话都是隐私对话，见下方「已隐藏的对话」。',
         enabled: '已装载',
         disabled: '未装载',
         sessionsCount: '{n} 个会话',
@@ -207,6 +208,7 @@ window.__ModuleLoader__.load({
         frostOff: 'Show it again',
         frostEnter: 'Enter private mode',
         hiddenChats: 'Hidden chats',
+        allHidden: 'All {n} chats here are private; find them under "Hidden chats" below.',
         enabled: 'Loaded',
         disabled: 'Not loaded',
         sessionsCount: '{n} sessions',
@@ -564,7 +566,10 @@ window.__ModuleLoader__.load({
       async function load(options) {
         const titles = options?.titles === true
         const wait = options?.wait === true
-        if (inFlight !== null) return inFlight
+        // A poll in flight would answer with the state from before the POST that just
+        // finished, so a send asks for a fresh read instead of joining the old one.
+        const force = options?.force === true
+        if (inFlight !== null && !force) return inFlight
         inFlight = (async () => {
           const query = []
           if (titles) query.push('titles=1')
@@ -593,7 +598,7 @@ window.__ModuleLoader__.load({
             body: JSON.stringify(body ?? {}),
           })
           const result = await response.json().catch(() => ({}))
-          await load()
+          await load({ force: true })
           return { ok: response.ok && result.ok !== false, result, status: response.status }
         } catch (error) {
           return { ok: false, result: { error: error instanceof Error ? error.message : String(error) }, status: 0 }
@@ -753,6 +758,8 @@ window.__ModuleLoader__.load({
                 ? h('p', { className: 'dsh-privacy-empty' }, dict.empty)
                 : group.workspaces.map((workspace) => {
                   const sessions = sessionsOf(workspace.id)
+                  const hiddenHere = hiddenSessions.filter((session) => session.workspaceId === workspace.id).length
+                  const total = sessions.length + hiddenHere
                   const isOpen = folded[workspace.id] !== true
                   const shown = sessions.slice(0, MAX_SESSIONS)
                   return h('div', { key: workspace.id },
@@ -770,9 +777,9 @@ window.__ModuleLoader__.load({
                         title: workspace.path || workspace.id,
                         onClick: () => openWorkspace(workspace.id),
                       }, h('span', { className: 'dsh-privacy-ws-title' }, workspace.title || workspace.id)),
-                      h('span', { className: 'dsh-privacy-group-count' }, format(dict.sessionsCount, { n: sessions.length }))),
+                      h('span', { className: 'dsh-privacy-group-count' }, format(dict.sessionsCount, { n: total }))),
                     isOpen ? (sessions.length === 0
-                      ? h('p', { className: 'dsh-privacy-empty' }, dict.empty)
+                      ? h('p', { className: 'dsh-privacy-empty' }, total === 0 ? dict.empty : format(dict.allHidden, { n: total }))
                       : shown.map((session) => h('button', {
                         key: session.id,
                         type: 'button',
@@ -985,7 +992,14 @@ window.__ModuleLoader__.load({
       React.useEffect(() => {
         void store.load({ titles: true, wait: true })
         void store.audit().then(setAudit)
-      }, [store, snapshot.state?.mode, snapshot.state?.job?.status])
+      }, [store, snapshot.state?.mode])
+
+      // The audit panel follows the job, not the mode: a finished switch adds a line.
+      React.useEffect(() => {
+        const status = snapshot.state?.job?.status
+        if (status !== 'done' && status !== 'failed') return
+        void store.audit().then(setAudit)
+      }, [store, snapshot.state?.job?.status])
 
       const refresh = async () => {
         await store.load({ titles: true, wait: true })
