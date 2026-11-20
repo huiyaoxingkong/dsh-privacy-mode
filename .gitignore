@@ -1,0 +1,10 @@
+# Dependencies are linked, never vendored.
+node_modules/
+
+# Local diagnostics: session dumps, scratch scripts, decompressed logs.
+_audit/
+
+# Runtime noise.
+*.log
+*.zstd
+*.tmp

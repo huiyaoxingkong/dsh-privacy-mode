@@ -1,0 +1,75 @@
+{
+  "meta": {
+    "title": "隐私模式",
+    "description": "两个方向不对称的可见性模式。NORMAL 下，被标记为隐私的插件不装载，其工具不会进入工具目录与 system prompt，其工作区与会话也不出现在侧栏；PRIVATE 下整个 profile 重新可见。会话只归档、不删除，切回时精确还原被隐藏的内容。进入 PRIVATE 可选择用 PIN 加锁。",
+    "detail": "docs/DETAIL.md"
+  },
+  "mode": {
+    "normal": "正常",
+    "private": "隐私",
+    "switching": "切换中…",
+    "label": "可见性模式",
+    "normalHint": "隐私项在此 profile 中不存在。",
+    "privateHint": "全部可见。",
+    "locked": "需要 PIN"
+  },
+  "chip": {
+    "title": "切换可见性模式",
+    "aria": "可见性模式：{mode}。激活以切换。"
+  },
+  "dialog": {
+    "enterPrivateTitle": "进入隐私模式",
+    "leavePrivateTitle": "回到正常模式",
+    "pinLabel": "PIN",
+    "pinPlaceholder": "输入 PIN",
+    "confirm": "切换",
+    "cancel": "取消",
+    "wrongPin": "PIN 不匹配。",
+    "noPinSet": "尚未设置 PIN。请先在隐私设置页设置，或关闭 PIN 校验后切换。",
+    "confirmLeave": "隐私插件会卸载，隐私工作区与会话会离开侧栏。不会删除任何内容，切回后还原。",
+    "failed": "切换失败，已回滚：{reason}",
+    "close": "关闭"
+  },
+  "manager": {
+    "title": "隐私模式",
+    "open": "隐私模式设置",
+    "openHint": "标记隐私插件、工作区与会话",
+    "modeSection": "模式",
+    "modeCurrent": "当前模式",
+    "pinSection": "PIN",
+    "pinSet": "已设置 PIN，进入隐私模式时需要输入。",
+    "pinUnset": "未设置 PIN。任何能操作此界面的人都可以进入隐私模式。",
+    "pinNew": "新 PIN",
+    "pinCurrent": "当前 PIN",
+    "pinSave": "保存 PIN",
+    "pinClear": "移除 PIN",
+    "pinSaved": "PIN 已保存。",
+    "pinCleared": "PIN 已移除。",
+    "pinTooShort": "至少 4 个字符。",
+    "pinMismatch": "当前 PIN 不匹配。",
+    "bundlesSection": "隐私插件",
+    "bundlesHint": "被标记的 bundle 在正常模式下取消选择，其行、工具与提示词完全不装载。",
+    "workspacesSection": "隐私工作区",
+    "workspacesHint": "被标记的工作区行在正常模式下不渲染，其会话被归档，不会散落到未分组列表。",
+    "sessionsSection": "隐私会话",
+    "sessionsHint": "被标记的会话在正常模式下被归档，不会出现在会话列表中。",
+    "unclassified": "尚未归类",
+    "unclassifiedBundles": "未决定去向的插件",
+    "unclassifiedWorkspaces": "未决定去向的工作区",
+    "save": "应用更改",
+    "saved": "标记已保存。",
+    "empty": "没有可列出的项。",
+    "count": "已标记 {count} 项",
+    "auditSection": "审计日志",
+    "auditHint": "本地文件，从旧到新：谁在何时改了哪些集合。",
+    "auditEmpty": "还没有记录。",
+    "auditPath": "文件",
+    "refresh": "刷新",
+    "loading": "加载中…",
+    "error": "无法读取隐私状态：{reason}"
+  },
+  "settings": {
+    "title": "隐私模式",
+    "description": "选择哪些插件、工作区与会话在正常模式下存在。"
+  }
+}

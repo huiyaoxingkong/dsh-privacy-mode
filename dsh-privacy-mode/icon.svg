@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Privacy mode">
+  <defs>
+    <linearGradient id="pm-open" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3ba7c9"/>
+      <stop offset="1" stop-color="#1d6f8c"/>
+    </linearGradient>
+    <linearGradient id="pm-shut" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2c3444"/>
+      <stop offset="1" stop-color="#151a24"/>
+    </linearGradient>
+  </defs>
+  <path d="M32 3 8 11v22c0 14 10 24 24 28 14-4 24-14 24-28V11Z" fill="url(#pm-shut)"/>
+  <path d="M32 3 8 11v22c0 14 10 24 24 28Z" fill="url(#pm-open)"/>
+  <path d="M32 8.6 12.6 15.2v17.8c0 11.5 7.9 19.9 19.4 23.4Z" fill="#8fd3e8" opacity="0.5"/>
+  <path d="M32 3 8 11v22c0 14 10 24 24 28 14-4 24-14 24-28V11Z" fill="none" stroke="#f4f8ff" stroke-opacity="0.55" stroke-width="1.6"/>
+  <circle cx="32" cy="27" r="7.5" fill="none" stroke="#f4f8ff" stroke-width="3"/>
+  <path d="M32 34.5V42" stroke="#f4f8ff" stroke-width="3" stroke-linecap="round"/>
+  <path d="M32 19.5V34.5" stroke="#151a24" stroke-width="3" stroke-linecap="round" opacity="0.9"/>
+</svg>

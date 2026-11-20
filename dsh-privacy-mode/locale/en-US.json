@@ -1,0 +1,75 @@
+{
+  "meta": {
+    "title": "Privacy mode",
+    "description": "Two asymmetric visibility modes. In NORMAL, plugins you mark private are unloaded so their tools never reach the tool catalog or the system prompt, and their workspaces and sessions stay out of the sidebar; PRIVATE sees the whole profile again. Sessions are archived, never deleted, and switching back restores exactly what was hidden. A PIN can gate entering PRIVATE.",
+    "detail": "docs/DETAIL.md"
+  },
+  "mode": {
+    "normal": "Normal",
+    "private": "Private",
+    "switching": "Switching…",
+    "label": "Visibility mode",
+    "normalHint": "Private items are absent from this profile.",
+    "privateHint": "Everything is visible.",
+    "locked": "PIN required"
+  },
+  "chip": {
+    "title": "Switch visibility mode",
+    "aria": "Visibility mode: {mode}. Activate to switch."
+  },
+  "dialog": {
+    "enterPrivateTitle": "Enter private mode",
+    "leavePrivateTitle": "Return to normal mode",
+    "pinLabel": "PIN",
+    "pinPlaceholder": "Enter the PIN",
+    "confirm": "Switch",
+    "cancel": "Cancel",
+    "wrongPin": "That PIN does not match.",
+    "noPinSet": "No PIN is set yet. Set one in the privacy page first, or switch with the PIN check turned off.",
+    "confirmLeave": "Private plugins unload and private workspaces and sessions leave the sidebar. Nothing is deleted and switching back restores them.",
+    "failed": "The switch failed and was rolled back: {reason}",
+    "close": "Close"
+  },
+  "manager": {
+    "title": "Privacy mode",
+    "open": "Privacy mode settings",
+    "openHint": "Mark plugins, workspaces and sessions as private",
+    "modeSection": "Mode",
+    "modeCurrent": "Current mode",
+    "pinSection": "PIN",
+    "pinSet": "A PIN is set. Entering private mode asks for it.",
+    "pinUnset": "No PIN is set. Anyone at this screen can enter private mode.",
+    "pinNew": "New PIN",
+    "pinCurrent": "Current PIN",
+    "pinSave": "Save PIN",
+    "pinClear": "Remove PIN",
+    "pinSaved": "PIN saved.",
+    "pinCleared": "PIN removed.",
+    "pinTooShort": "Use at least 4 characters.",
+    "pinMismatch": "The current PIN does not match.",
+    "bundlesSection": "Private plugins",
+    "bundlesHint": "A marked bundle is deselected in normal mode, so its rows, tools and prompt text are not loaded at all.",
+    "workspacesSection": "Private workspaces",
+    "workspacesHint": "A marked workspace row is not rendered in normal mode, and its sessions are archived so they do not fall into the ungrouped list.",
+    "sessionsSection": "Private sessions",
+    "sessionsHint": "A marked session is archived in normal mode and is not offered by the session list.",
+    "unclassified": "Not classified yet",
+    "unclassifiedBundles": "Plugins with no decision",
+    "unclassifiedWorkspaces": "Workspaces with no decision",
+    "save": "Apply changes",
+    "saved": "Marking saved.",
+    "empty": "Nothing to list.",
+    "count": "{count} marked",
+    "auditSection": "Audit log",
+    "auditHint": "Local file, newest last: who changed which set, and when.",
+    "auditEmpty": "No entries yet.",
+    "auditPath": "File",
+    "refresh": "Refresh",
+    "loading": "Loading…",
+    "error": "Could not read the privacy state: {reason}"
+  },
+  "settings": {
+    "title": "Privacy mode",
+    "description": "Choose which plugins, workspaces and sessions exist in normal mode."
+  }
+}

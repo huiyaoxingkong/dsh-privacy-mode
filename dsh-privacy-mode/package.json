@@ -1,0 +1,51 @@
+{
+  "name": "dsh-privacy-mode",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Asymmetric visibility modes for DeepSeek Harness: in NORMAL, marked plugins, workspaces and sessions do not exist; in PRIVATE, everything is visible again.",
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "plugin",
+    "privacy",
+    "visibility",
+    "agent-preset"
+  ],
+  "license": "MIT",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./tools": "./tools.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "tools.js",
+    "lib",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "docs",
+    "icon.svg",
+    "README.md"
+  ],
+  "engines": {
+    "dsh": ">=0.2.2-rc.5 <0.3.0"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-sidebar",
+        "@deepseek-ai/dsh-client-ui-conversation",
+        "@deepseek-ai/dsh-client-ui-settings"
+      ]
+    }
+  }
+}
