@@ -1,0 +1,91 @@
+{
+  "format": 1,
+  "title": {
+    "en": "DSH Privacy Mode",
+    "zh": "DSH 隐私模式"
+  },
+  "description": {
+    "en": "Asymmetric visibility for DeepSeek Harness: mark plugins, workspaces and chats private, then make them absent in NORMAL and readable again in PRIVATE behind a password or Windows Hello / Touch ID.",
+    "zh": "DeepSeek Harness 的非对称可见性插件：把插件、工作区、对话标记为隐私，常规模式下它们不存在，隐私模式输密码或用 Windows Hello / Touch ID 后恢复可读。"
+  },
+  "metadata": {
+    "categories": {
+      "privacy": {
+        "title": {
+          "en": "Privacy",
+          "zh": "隐私"
+        }
+      }
+    },
+    "labels": {
+      "security": {
+        "title": {
+          "en": "Security",
+          "zh": "安全"
+        }
+      },
+      "visibility": {
+        "title": {
+          "en": "Visibility",
+          "zh": "可见性"
+        }
+      },
+      "webauthn": {
+        "title": {
+          "en": "WebAuthn",
+          "zh": "生物识别"
+        }
+      }
+    }
+  },
+  "plugins": [
+    {
+      "name": "dsh-privacy-mode",
+      "title": {
+        "en": "Privacy Mode",
+        "zh": "隐私模式"
+      },
+      "description": {
+        "en": "Two asymmetric visibility modes. In NORMAL, the plugins you mark private are not composed at all — no row, no tools, no prompt text — and their workspaces and chats are archived. PRIVATE composes the whole profile again behind a password or a platform authenticator, with a per-chat privacy button, a grouped workspace list and bulk classification.",
+        "zh": "两个方向不对称的可见性模式。常规模式下，被标记为隐私的插件根本不参与组合（没有行、没有工具、没有提示词），其工作区与对话被归档；隐私模式整份 profile 重新装载，用密码或系统指纹进入，并提供单对话隐私开关、分组工作区与批量分类。"
+      },
+      "icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByb2xlPSJpbWciIGFyaWEtbGFiZWw9IlByaXZhY3kgbW9kZSI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9InBtLW9wZW4iIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjM2JhN2M5Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzFkNmY4YyIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0icG0tc2h1dCIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMyYzM0NDQiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMTUxYTI0Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cGF0aCBkPSJNMzIgMyA4IDExdjIyYzAgMTQgMTAgMjQgMjQgMjggMTQtNCAyNC0xNCAyNC0yOFYxMVoiIGZpbGw9InVybCgjcG0tc2h1dCkiLz4KICA8cGF0aCBkPSJNMzIgMyA4IDExdjIyYzAgMTQgMTAgMjQgMjQgMjhaIiBmaWxsPSJ1cmwoI3BtLW9wZW4pIi8+CiAgPHBhdGggZD0iTTMyIDguNiAxMi42IDE1LjJ2MTcuOGMwIDExLjUgNy45IDE5LjkgMTkuNCAyMy40WiIgZmlsbD0iIzhmZDNlOCIgb3BhY2l0eT0iMC41Ii8+CiAgPHBhdGggZD0iTTMyIDMgOCAxMXYyMmMwIDE0IDEwIDI0IDI0IDI4IDE0LTQgMjQtMTQgMjQtMjhWMTFaIiBmaWxsPSJub25lIiBzdHJva2U9IiNmNGY4ZmYiIHN0cm9rZS1vcGFjaXR5PSIwLjU1IiBzdHJva2Utd2lkdGg9IjEuNiIvPgogIDxjaXJjbGUgY3g9IjMyIiBjeT0iMjciIHI9IjcuNSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZjRmOGZmIiBzdHJva2Utd2lkdGg9IjMiLz4KICA8cGF0aCBkPSJNMzIgMzQuNVY0MiIgc3Ryb2tlPSIjZjRmOGZmIiBzdHJva2Utd2lkdGg9IjMiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDxwYXRoIGQ9Ik0zMiAxOS41VjM0LjUiIHN0cm9rZT0iIzE1MWEyNCIgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2UtbGluZWNhcD0icm91bmQiIG9wYWNpdHk9IjAuOSIvPgo8L3N2Zz4K",
+      "author": "huiyaoxingkong",
+      "homepage": "https://github.com/huiyaoxingkong/dsh-privacy-mode#readme",
+      "repository": {
+        "url": "https://github.com/huiyaoxingkong/dsh-privacy-mode",
+        "directory": "dsh-privacy-mode"
+      },
+      "metadata": {
+        "category": "privacy",
+        "keywords": [
+          "privacy",
+          "visibility",
+          "workspaces",
+          "sessions",
+          "webauthn"
+        ],
+        "labels": [
+          "security",
+          "visibility",
+          "webauthn"
+        ]
+      },
+      "versions": [
+        {
+          "version": "0.2.0",
+          "publishTimestamp": 1795258332,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/huiyaoxingkong/dsh-privacy-mode",
+            "commit": "80a550c581b7b186a1eae3ed1b1dd24590213505",
+            "path": "dsh-privacy-mode"
+          },
+          "engines": {
+            "dsh": ">=0.2.2-rc.5 <0.3.0"
+          }
+        }
+      ]
+    }
+  ]
+}
