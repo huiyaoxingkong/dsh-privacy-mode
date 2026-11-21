@@ -1,0 +1,37 @@
+name: checks
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ['22', '24']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      # Engine semantics, rollback, the queue and its watchdog, PIN, WebAuthn and recovery.
+      - name: Engine self-check
+        working-directory: dsh-privacy-mode
+        run: node scripts/selfcheck-coldstart.mjs
+
+      # Renders the client half against a fake slot registry in both modes.
+      - name: Client render check
+        working-directory: dsh-privacy-mode
+        run: node scripts/check-client.mjs
+
+      # Skips itself (exit 0) when no DSH installation is present, which is the case here.
+      - name: Preset drift
+        working-directory: dsh-privacy-mode
+        run: node scripts/check-presets.mjs

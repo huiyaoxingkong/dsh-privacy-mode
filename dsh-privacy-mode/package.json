@@ -1,7 +1,7 @@
 {
   "name": "dsh-privacy-mode",
   "version": "0.2.0",
-  "private": true,
+  "private": false,
   "type": "module",
   "description": "Asymmetric visibility modes for DeepSeek Harness: in NORMAL, marked plugins, workspaces and sessions do not exist; in PRIVATE, everything is visible again.",
   "keywords": [
@@ -47,5 +47,18 @@
         "@deepseek-ai/dsh-client-ui-settings"
       ]
     }
+  },
+  "author": {
+    "name": "huiyaoxingkong",
+    "url": "https://github.com/huiyaoxingkong"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/huiyaoxingkong/dsh-privacy-mode.git",
+    "directory": "dsh-privacy-mode"
+  },
+  "homepage": "https://github.com/huiyaoxingkong/dsh-privacy-mode#readme",
+  "bugs": {
+    "url": "https://github.com/huiyaoxingkong/dsh-privacy-mode/issues"
   }
 }
