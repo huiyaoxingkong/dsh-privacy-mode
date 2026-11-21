@@ -7,8 +7,8 @@ profile is visible again and reading comes back.
 [中文说明](dsh-privacy-mode/README.md) · [Bundle source](dsh-privacy-mode/) · MIT
 
 ```
-NORMAL   marked bundle → not composed at all (no row, no tools, no prompt text)
-         marked workspace/session → archived and out of the sidebar
+NORMAL   marked bundle -> not composed at all (no row, no tools, no prompt text)
+         marked workspace/session -> archived and out of the sidebar
 PRIVATE  everything composed again; private chats readable, tagged and listed by group
 ```
 
@@ -42,7 +42,7 @@ running turn can be interrupted, which is why the switch itself answers before i
 This repository publishes its own index for the DSH Discover page:
 
 ```
-https://raw.githubusercontent.com/huiyaoxingkong/dsh-privacy-mode/main/index.json
+https://huiyaoxingkong.github.io/dsh-privacy-mode/index.json
 ```
 
 Add it under Settings → Plugins → Market indexes.
